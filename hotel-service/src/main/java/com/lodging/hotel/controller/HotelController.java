@@ -1,6 +1,9 @@
 package com.lodging.hotel.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,12 +16,13 @@ import com.lodging.hotel.service.HotelService;
 
 @RestController
 @RequestMapping("/hotel")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HotelController {
 
 	@Autowired
 	private HotelService hotelService;
 	
-	@PostMapping("/")
+	@PostMapping("/add")
 	public Hotel saveHotel(@RequestBody Hotel hotel)
 	{
 		return hotelService.saveHotel(hotel);
@@ -28,5 +32,11 @@ public class HotelController {
 	public Hotel getHotelById(@PathVariable("id") Long id)
 	{
 		return hotelService.getHotel(id);
+	}
+	
+	@GetMapping("/all")
+	public List<Hotel> getAllHotels()
+	{
+		return hotelService.getHotels();
 	}
 }
