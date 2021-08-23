@@ -1,5 +1,15 @@
 package com.lodging.user.VO;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import com.lodging.user.entity.User;
+
 public class Hotel {
 
 	private Long oid;
@@ -13,7 +23,7 @@ public class Hotel {
 	private Long hotelNumber;
 	
 	private Address address;
-
+	
 	public Long getOid() {
 		return oid;
 	}

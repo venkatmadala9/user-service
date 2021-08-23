@@ -1,26 +1,24 @@
 package com.lodging.user.service;
 
+import java.util.Map;
 import java.util.Optional;
+ 
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.lodging.user.dto.LocalUser;
+import com.lodging.user.dto.SignUpRequest;
 import com.lodging.user.entity.User;
-import com.lodging.user.repository.UserRepository;
+import com.lodging.user.exception.UserAlreadyExistAuthenticationException;
+ 
 
-@Service
-public class UserService {
-
-	@Autowired
-	private UserRepository userRepository;
-	
-	public Optional<User> getUser(Long id)
-	{
-		return userRepository.findById(id);
-	}
-	
-	public User saveUser(User user)
-	{
-		return userRepository.save(user);
-	}
+public interface UserService {
+	 
+    public User registerNewUser(SignUpRequest signUpRequest) throws UserAlreadyExistAuthenticationException;
+ 
+    User findUserByEmail(String email);
+ 
+    Optional<User> findUserById(Long id);
+ 
+    LocalUser processUserRegistration(String registrationId, Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo);
 }
